@@ -9,8 +9,8 @@
  */
 
 static const char *JSON_STRING =
-	"{\"user\": \"johndoe\", \"admin\": false, \"uid\": 1000,\n  "
-	"\"groups\": [\"users\", \"wheel\", \"audio\", \"video\"]}";
+	"{\"User\": \"johndoe\", \"Admin\": false, \"UID\": 1000, \"User\": jerry1004, \"Admin\": true, \"UID\": 2000\n  "
+	"\"Groups\": [\"users\", \"wheel\", \"audio\", \"video\"]}";
 
 static int jsoneq(const char *json, jsmntok_t *tok, const char *s) {
 	if (tok->type == JSMN_STRING && (int) strlen(s) == tok->end - tok->start &&
