@@ -25,8 +25,13 @@ test_strict_links: test/tests.c
 
 jsmn_test.o: jsmn_test.c libjsmn.a
 
+<<<<<<< HEAD
 myexample: example/myjson.o libjsmn.a
 	$(CC) $(LDFLAGS) $^ -o $@ 
+=======
+simple_example: example/myjson.o libjsmn.a
+	$(CC) $(LDFLAGS) $^ -o $@
+>>>>>>> 8ad699a03c5b27ecf8edbf1765a1f36cce56c842
 
 jsondump: example/jsondump.o libjsmn.a
 	$(CC) $(LDFLAGS) $^ -o $@
