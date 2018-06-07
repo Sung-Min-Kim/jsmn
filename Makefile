@@ -1,7 +1,7 @@
 # You can put your build options here
 -include config.mk
 
-all: libjsmn.a 
+all: libjsmn.a
 
 libjsmn.a: jsmn.o
 	$(AR) rc $@ $^
@@ -25,15 +25,22 @@ test_strict_links: test/tests.c
 
 jsmn_test.o: jsmn_test.c libjsmn.a
 
-<<<<<<< HEAD
 myexample: example/myjson.o libjsmn.a
-	$(CC) $(LDFLAGS) $^ -o $@ 
-=======
+	$(CC) $(LDFLAGS) $^ -o $@
+
 simple_example: example/myjson.o libjsmn.a
 	$(CC) $(LDFLAGS) $^ -o $@
->>>>>>> 8ad699a03c5b27ecf8edbf1765a1f36cce56c842
 
 jsondump: example/jsondump.o libjsmn.a
+	$(CC) $(LDFLAGS) $^ -o $@
+
+file_simple_example:	mysource/filesimple.c libjsmn.a
+	$(CC) $(LDFLAGS) $^ -o $@
+
+productlist_example: mysource/productlist.c libjsmn.a
+	$(CC) $(LDFLAGS) $^ -o $@
+
+myproduct_example: mysource/myproduct.c libjsmn.a
 	$(CC) $(LDFLAGS) $^ -o $@
 
 clean:
@@ -42,6 +49,8 @@ clean:
 	rm -f myexample
 	rm -f simple_example
 	rm -f jsondump
+	rm -f file_simple_example
+	rm -f productlist_example
+	rm -f myproduct_example
 
 .PHONY: all clean test
-

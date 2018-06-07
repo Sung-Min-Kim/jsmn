@@ -1,7 +1,6 @@
 #ifndef __JSMN_H_
 #define __JSMN_H_
 #define JSMN_PARENT_LINKS
-
 #include <stddef.h>
 
 #ifdef __cplusplus
@@ -47,6 +46,11 @@ typedef struct {
 	int parent;
 #endif
 } jsmntok_t;
+
+typedef struct{
+	int tok_index;
+	int object_index;
+}NameTokenInfo;
 
 /**
  * JSON parser. Contains an array of token blocks available. Also stores

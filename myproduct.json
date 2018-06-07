@@ -1,0 +1,29 @@
+{
+  "Coffee":
+      [
+            {
+                "company": "롯데",
+                "name": "칸타타 프리미엄 라떼",
+                "price": 980,
+                "quantity": 275
+            },
+            {
+                "company": "조지아",
+                "name": "고티카 빈티지 블랙",
+                "price": 980,
+                "quantity": 270
+            },
+            {
+                "company": "맥심",
+                "name": "TOP 스무스 라떼",
+                "price": 1680,
+                "quantity": 240
+            },
+            {
+                "company": "스타벅스",
+                "name": "커피 에스프레소",
+                "price": 1940,
+                "quantity": 200
+            }
+      ]
+}

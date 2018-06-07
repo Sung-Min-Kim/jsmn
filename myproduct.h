@@ -1,7 +1,6 @@
 #ifndef __JSMN_H_
 #define __JSMN_H_
 #define JSMN_PARENT_LINKS
-
 #include <stddef.h>
 
 #ifdef __cplusplus
@@ -47,6 +46,25 @@ typedef struct {
 	int parent;
 #endif
 } jsmntok_t;
+
+typedef struct{
+	int tok_index;
+	int object_index;
+}NameTokenInfo;
+
+typedef enum{
+	LOTTE = 0, // 롯데
+	GEORGIA = 1, // 조지아
+	MAXIM = 2, //
+	STARBUCKS = 3
+} company_t;
+
+typedef struct{
+	company_t company; //제조사
+	char name[20]; //제품명
+	int price; //가격
+	int quantity; //용량
+} product_t;
 
 /**
  * JSON parser. Contains an array of token blocks available. Also stores
