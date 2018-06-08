@@ -61,7 +61,7 @@ typedef enum{
 
 typedef struct{
 	company_t company; //제조사
-	char name[20]; //제품명
+	char name[100]; //제품명
 	int price; //가격
 	int quantity; //용량
 } product_t;

@@ -54,16 +54,17 @@ static int jsoneq(const char *json, jsmntok_t *tok, const char *s) {
 int makeProduct(const char *jsonstr, jsmntok_t *t, int tokcount, product_t * p[]){
 		int i;
 		int pcount = 0; // 구조체 개수 세기
-		char company[1024];
-		char name[1024];
-		char price[1024];
-		char quantity[1024];
+		char company[128];
+		char name[128];
+		char price[128];
+		char quantity[128];
 		for(i = 0; i < tokcount; i++){
 			if(t[i].type == JSMN_STRING && t[i].size == 1 && t[t[t[i].parent].parent].parent == 1 && t[0].type == JSMN_OBJECT && t[i+1].type != JSMN_ARRAY){
 				if(jsoneq(JSON_STRING, &t[i], "company") == 0){
 					p[pcount] = (product_t *)malloc(sizeof(product_t));
 					strncpy(company, jsonstr + t[i+1].start, t[i+1].end - t[i+1].start); // 회사 이름 받기
-					sprintf(company, "%s", company);
+					company[t[i+1].end - t[i+1].start] = '\0';
+					//sprintf(company, "%s", company);
 					if(strcmp(company, "롯데") == 0){
 						p[pcount]->company = LOTTE;
 					}else if(strcmp(company, "조지아") == 0){
@@ -75,35 +76,38 @@ int makeProduct(const char *jsonstr, jsmntok_t *t, int tokcount, product_t * p[]
 					}
 				}else if(jsoneq(JSON_STRING, &t[i], "name") == 0){
 					strncpy(name, jsonstr + t[i+1].start, t[i+1].end - t[i+1].start); // 이름 구조체에 넣어주기
-					sprintf(name, "%s", name);
+					name[t[i+1].end - t[i+1].start] = '\0';
 					strcpy(p[pcount]->name, name);
 				}else if(jsoneq(JSON_STRING, &t[i], "price") == 0){
 					strncpy(price, jsonstr + t[i+1].start, t[i+1].end - t[i+1].start); // 제품 가격
-					sprintf(price, "%s", price);
+					price[t[i+1].end - t[i+1].start] = '\0';
 					p[pcount]->price = atoi(price);
 				}else if(jsoneq(JSON_STRING, &t[i], "quantity") == 0){
 					strncpy(quantity, jsonstr + t[i+1].start, t[i+1].end - t[i+1].start); // 제품 용량
-					sprintf(quantity, "%s", quantity);
+					quantity[t[i+1].end - t[i+1].start] = '\0';
 					p[pcount]->quantity = atoi(quantity);
 					pcount++;
 				}
 			}
 		}
-		// printf("pcount: %d\n", pcount);
-		// for(i = 0; i < pcount; i++){
-		// 	printf("회사: %d, 이름: %s, 가격: %d, 용량: %d\n", p[i]->company, p[i]->name, p[i]->price, p[i]->quantity);
-		// }
-
 		return pcount;
 }
 
 void printProduct(product_t * p[], int pcount){
 	int i;
-	printf("**************************************************\n");
-	printf("번호\t제품명  제조사  가격\t용량  \n");
-	printf("**************************************************\n");
+	printf("*******************************************************\n");
+	printf("번호\t제품명\t\t\t  제조사  가격\t용량  \n");
+	printf("*******************************************************\n");
 	for(i = 0; i < pcount; i++){
-		printf("%d\t%s  %s\t%d\t%d\n", i + 1, p[i]->name, p[i]->company, p[i]->price, p[i]->quantity);
+		if(p[i]->company == LOTTE){
+			printf("%d\t%s\t  %s\t  %d\t%d\n", i + 1, p[i]->name, "롯데", p[i]->price, p[i]->quantity);
+		}else if(p[i]->company == GEORGIA){
+			printf("%d\t%s\t  %s  %d\t%d\n", i + 1, p[i]->name, "조지아", p[i]->price, p[i]->quantity);
+		}else if(p[i]->company == MAXIM){
+			printf("%d\t%s\t\t  %s\t  %d\t%d\n", i + 1, p[i]->name, "맥심", p[i]->price, p[i]->quantity);
+		}else if(p[i]->company == STARBUCKS){
+			printf("%d\t%s\t\t  %s%d\t%d\n", i + 1, p[i]->name, "스타벅스", p[i]->price, p[i]->quantity);
+		}
 	}
 }
 
